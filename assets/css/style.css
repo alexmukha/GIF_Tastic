@@ -10,3 +10,8 @@ margin-right: auto;
 .btn-success {
     text-transform: capitalize;
   }
+
+.pm-01 {
+margin: 1px;
+padding: 1px;
+}

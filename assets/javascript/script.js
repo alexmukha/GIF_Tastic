@@ -1,67 +1,65 @@
+var topics = ["cars", "funny-cars", "ferrari", "bugatti", "mcLaren"];
 var apiKey = "LZotlBOPBSmy6eUopisIhqpfiIh00TgH";
-
-
-      var btnList = ["cats", "dogs", "emoji", "The Lion King", "charkie cat"];
-    /
+var rating = "pg";
+var limit = "10";
+    
       function displayGifs() {
 
         var gifList = $(this).attr("data-name");
-       
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifList + "&api_key=dc6zaTOxFJmzC&limit=20";
-console.log(queryURL);
+       console.log(this);
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifList + "&api_key="+apiKey+"&rating="+rating+"&limit="+limit;
+// console.log(queryURL);
         $.ajax({
           url: queryURL,
           method: "GET"
         }).then(function(response) {
-            var results = response.data;
-            for (var i = 0; i<results.length; i++) {
-            var img = $("<img src="+response.data[i].images.fixed_height.url+">");
-            // img.attr("data-src", response.data[1].images.fixed_height.url)
-            console.log(img);
-          $("#gifs-view").append(img);
-        //   gif = (response.data[1].images.fixed_height.url);
-            }
+          var results = response.data;
+          for (var i = 0; i<results.length; i++) {
+            // var source = response.data[i].images;
+            var stillURL = response.data[i].images.fixed_height_still.url;
+            var animateURL = response.data[i].images.fixed_height.url;
+            var frame = $("<div>");
+            frame.attr("class", "alert btn-success pm-01 d-inline-block")
+            var img = $("<img>");
+          img.attr("src", stillURL);
+          img.attr("data-still", stillURL);
+          img.attr("data-animate", animateURL);
+          img.attr("data-state", "still");
+          img.attr("class", "gif");
+                      // img.attr("data-src", response.data[1].images.fixed_height.url)
+          console.log(response.data[i]);
+          // $("#gifs-view").append(img);
+          frame.append(img);
+          $("#gifs-view").append(frame);
+        
+          }
         });
       }
-      // Function for displaying movie data
+    
       function renderButtons() {
 
-        // Deleting the buttons prior to adding new btnList
-        // (this is necessary otherwise you will have repeat buttons)
         $("#buttons-view").empty();
-
-        for (var i = 0; i < btnList.length; i++) {
-
+        for (var i = 0; i < topics.length; i++) {
           var a = $("<button>");
-         
           a.addClass("gifBtn btn btn-success m-1");
-         
-          a.attr("data-name", btnList[i]);
-         
-          a.text(btnList[i]);
-         
+          a.attr("data-name", topics[i]);
+          a.text(topics[i]);
           $("#buttons-view").append(a);
         }
       }
 
-      // This function handles events where one button is clicked
       $("#add-title").on("click", function(event) {
         event.preventDefault();
-
-        // This line grabs the input from the textbox
+        console.log(this);
+    
         var gifList = $("#title-input").val().trim();
 
-        // Adding the gifs from the textbox to our array
-        btnList.push(gifList);
-        console.log(btnList);
+        topics.push(gifList);
+        // console.log(topics);
 
-        // Calling renderButtons which handles the processing of our gif array
         renderButtons();
       });
 
-      // Function for displaying the gif info
-      // Using $(document).on instead of $(".gifBtn").on to add event listeners to dynamically generated elements
       $(document).on("click", ".gifBtn", displayGifs);
 
-      // Calling the renderButtons function to display the initial buttons
       renderButtons();
