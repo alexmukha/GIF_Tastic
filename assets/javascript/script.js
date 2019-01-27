@@ -58,6 +58,7 @@ var limit = "10";
         // console.log(topics);
 
         renderButtons();
+        $("#title-input").val("")
       });
 
       $(document).on("click", ".gifBtn", displayGifs);
