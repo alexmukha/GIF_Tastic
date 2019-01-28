@@ -14,6 +14,7 @@ function displayGifs() {
     method: "GET"
   }).then(function (response) {
     var results = response.data;
+    console.log(response.data);
     for (var i = 0; i < results.length; i++) {
       var stillURL = response.data[i].images.fixed_height_still.url;
       var animateURL = response.data[i].images.fixed_height.url;
@@ -33,6 +34,16 @@ function displayGifs() {
       img.attr("class", "gif");
       frame.append(img);
       frame.append("<br>" + title + "<br>Rating:<b> " + rated + "</b>");
+      var favDiv = $("<div>");
+      var favImg = $("<img>");
+      favImg.attr("src", "./assets/Fave_0.png");
+      favImg.attr("height", "20px");
+      favImg.attr("fave-not", "./assets/Fave_0.png");
+      favImg.attr("fave-yes", "./assets/Fave.png");
+      favImg.attr("fave-state", "not");
+      favImg.attr("class", "favorite");
+      favDiv.append(favImg);
+      frame.append(favImg);
       $("#gifs-view").append(frame);
     }
   });
@@ -75,9 +86,22 @@ $("#add-title").on("click", function (event) {
 
 });
 
-// Animate and stop gifs
 $(document).on("click", ".gifBtn", displayGifs);
 renderButtons();
+
+
+$(document).on("click", ".favorite", function () {
+  var fave = $(this).attr("fave-state");
+  if (fave === "no") {
+    $(this).attr("src", $(this).attr("fave-yes"));
+    $(this).attr("fave-state", "yes");
+  } else {
+    $(this).attr("src", $(this).attr("fave-not"));
+    $(this).attr("fave-state", "no");
+  }
+});
+
+// Animate and stop gifs
 $(document).on("click", ".gif", function () {
   var state = $(this).attr("data-state");
   if (state === "still") {
@@ -88,3 +112,4 @@ $(document).on("click", ".gif", function () {
     $(this).attr("data-state", "still");
   }
 });
+
