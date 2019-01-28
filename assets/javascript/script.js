@@ -15,14 +15,17 @@ function displayGifs() {
     method: "GET"
   }).then(function (response) {
     var results = response.data;
-    console.log(response.data);
+    if (results == 0) {
+      alert("Sorry, No results with the \""+gifList+"\" title");
+    }
+    console.log(results);
     for (var i = 0; i < results.length; i++) {
       var newGifs = i+used;
       var stillURL = response.data[newGifs].images.fixed_height_still.url;
       var animateURL = response.data[newGifs].images.fixed_height.url;
       var rated = response.data[newGifs].rating;
       var title = response.data[newGifs].title;
-console.log(newGifs);
+// console.log(newGifs);
       // Create frame around each gif
       var frame = $("<div>");
       frame.attr("class", "alert btn-success pm-01 d-inline-block text-center")
