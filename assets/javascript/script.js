@@ -50,15 +50,18 @@ var limit = "10";
 
       $("#add-title").on("click", function(event) {
         event.preventDefault();
-        console.log(this);
-    
+        if ($("#title-input").val().trim() === "" || $("#title-input").val().trim() === " ") {
+          alert("Cannot create empty buton!");
+          $("#title-input").val("")
+        } else {
         var gifList = $("#title-input").val().trim();
 
         topics.push(gifList);
-        // console.log(topics);
+        console.log(topics);
 
         renderButtons();
         $("#title-input").val("")
+      }
       });
 
       $(document).on("click", ".gifBtn", displayGifs);
