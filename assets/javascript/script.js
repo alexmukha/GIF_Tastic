@@ -1,12 +1,13 @@
 var topics = ["cars", "funny-cars", "ferrari", "bugatti", "mcLaren"];
 var apiKey = "LZotlBOPBSmy6eUopisIhqpfiIh00TgH";
 var rating = "pg";
-var limit = "10";
-var favorites = [];
 
 // Runs the ajax query to pull images
 function displayGifs() {
-  
+  // Created a random 10 images
+  var used = Math.floor(Math.random() * 99);
+  var limit = 10+used;
+    
   var gifList = $(this).attr("data-name");
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + gifList + "&api_key=" + apiKey + "&rating=" + rating + "&limit=" + limit;
   $.ajax({
@@ -16,11 +17,12 @@ function displayGifs() {
     var results = response.data;
     console.log(response.data);
     for (var i = 0; i < results.length; i++) {
-      var stillURL = response.data[i].images.fixed_height_still.url;
-      var animateURL = response.data[i].images.fixed_height.url;
-      var rated = response.data[i].rating;
-      var title = response.data[i].title;
-
+      var newGifs = i+used;
+      var stillURL = response.data[newGifs].images.fixed_height_still.url;
+      var animateURL = response.data[newGifs].images.fixed_height.url;
+      var rated = response.data[newGifs].rating;
+      var title = response.data[newGifs].title;
+console.log(newGifs);
       // Create frame around each gif
       var frame = $("<div>");
       frame.attr("class", "alert btn-success pm-01 d-inline-block text-center")
@@ -33,16 +35,15 @@ function displayGifs() {
       img.attr("data-state", "still");
       img.attr("class", "gif");
       frame.append(img);
-      frame.append("<br>" + title + "<br>Rating:<b> " + rated + "</b>");
-      var favDiv = $("<div>");
+      frame.append("<br>" + title + "<br>Rating:<b> " + rated + "</b>&nbsp;");
       var favImg = $("<img>");
-      favImg.attr("src", "./assets/Fave_0.png");
+      favImg.attr("src", "./assets/images/Fave_0.png");
       favImg.attr("height", "20px");
-      favImg.attr("fave-not", "./assets/Fave_0.png");
-      favImg.attr("fave-yes", "./assets/Fave.png");
-      favImg.attr("fave-state", "not");
+      favImg.attr("fave-not", "./assets/images/Fave_0.png");
+      favImg.attr("fave-yes", "./assets/images/Fave.png");
+      favImg.attr("fave-state", "no");
+      favImg.attr("title", "");
       favImg.attr("class", "favorite");
-      favDiv.append(favImg);
       frame.append(favImg);
       $("#gifs-view").append(frame);
     }
@@ -89,15 +90,17 @@ $("#add-title").on("click", function (event) {
 $(document).on("click", ".gifBtn", displayGifs);
 renderButtons();
 
-
+// Mark gif as favorite
 $(document).on("click", ".favorite", function () {
   var fave = $(this).attr("fave-state");
   if (fave === "no") {
     $(this).attr("src", $(this).attr("fave-yes"));
     $(this).attr("fave-state", "yes");
+    $(this).attr("title", "My favorite");
   } else {
     $(this).attr("src", $(this).attr("fave-not"));
     $(this).attr("fave-state", "no");
+    $(this).attr("title", "");
   }
 });
 
