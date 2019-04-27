@@ -15,3 +15,10 @@ margin-right: auto;
 margin: 1px;
 padding: 1px;
 }
+
+.giphy {
+  background-image: url("https://media.giphy.com/media/3o6gbbuLW76jkt8vIc/giphy.gif");
+  background-position: center;
+  background-size: 100%;
+  display: inline;
+}

@@ -1,4 +1,4 @@
-var topics = ["cars", "funny-cars", "ferrari", "bugatti", "mcLaren"];
+var topics = ["cars", "ferrari", "bugatti", "mcLaren", "giphy"];
 var apiKey = "LZotlBOPBSmy6eUopisIhqpfiIh00TgH";
 var rating = "pg";
 
@@ -15,6 +15,7 @@ function displayGifs() {
     method: "GET"
   }).then(function (response) {
     var results = response.data;
+    console.log(response);
     if (results == 0) {
       alert("Sorry, No results with the \""+gifList+"\" title");
     }

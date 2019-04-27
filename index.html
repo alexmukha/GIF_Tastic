@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-
     <title>GIF-Tastic</title>
 </head>
 <body>
-    <div class="containers">
+    <div class="containers pt-2">
         <div class="row col-md-12">
             <div class="col-md-9">
+                <div><b>&nbsp;Powered by:</b>
+                    <a href="https://giphy.com" target="_blank">
+                        <div class="giphy">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </a>
+                </div>
                 <div id="buttons-view">
-                   
                 </div>
             </div>
             <div class="col-md-3 text-center mt-1">
                 <form id="image-form">
-                    <!-- <label for="title-input">Add a new title</label><br> -->
                     <input type="text" id="title-input"><br>
                     <input id="add-title" type="submit" value="Add a new title" class="btn m-1">
                 </form>
@@ -28,10 +32,9 @@
         </div>
         <div class="row col-md-12">
             <div class="col-md-12">
-            <div id="gifs-view">
-               
+                <div id="gifs-view">
+                </div>
             </div>
-        </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
